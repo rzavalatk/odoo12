@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="unconciliacion_print_view">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="conciliacion_bancaria.unconciliacion_print_custom"/>
+        </t>
+      </t>
+    </template>
+
+    <template id="unconciliacion_print_custom">
+      <t t-call="conciliacion_bancaria.external_layout_concilacion">
+        <div class="page">
+          <div class="oe_structure"/>
+          <table class="table table-sm o_main_table" name="invoice_line_table" style="font-size:12px;border:1px solid black;">
+            <thead style="background:gray;color:#FFFFFF;">
+              <tr style="font-size:12px;">
+                <th class="text-left" style="padding: 2px; width:16%;border:1px solid black;">Movimiento</th>
+                <th class="text-center" style="padding: 2px; width:20%;border:1px solid black;">Descripción</th>
+                <th class="text-center" style="padding: 2px; width:12%;border:1px solid black;">Fecha</th> 
+                <!--<th class="text-center" style="padding: 2px; width:15%;border:1px solid black;">Crédito</th>-->
+                <th class="text-center" style="padding: 2px; width:12%;border:1px solid black;">Debe</th>
+                <th class="text-center" style="padding: 2px; width:12%;border:1px solid black;">Haber</th>
+                <th class="text-center" style="padding: 2px; width:15%;border:1px solid black;">Moneda</th>
+                <th class="text-center" style="padding: 2px; width:12%;border:1px solid black;">Importe moneda</th>
+              </tr>
+            </thead>
+            <tbody class="invoice_tbody" style="font-size:12px;">
+              <tr t-foreach="o.conciliacion_line" t-as="l">
+                <t t-if="not(l.es_conciliado)">
+                  <td class="text-left" style="padding: 2px; border:1px solid black;">
+                      <span t-field="l.move_id.name"/>
+                  </td>
+                  <td class="text-left" style="padding: 2px; border:1px solid black;">
+                     <span t-field="l.name"/>
+                  </td>
+                  <!--<td class="text-right" style="padding: 2px; border:1px solid black;">
+                  <span t-field="l.debit"/>
+                  </td>-->
+                  <td class="text-right" style="padding: 2px; border:1px solid black;">
+                        <span t-field="l.date"/>
+                  </td>
+                  <td class="text-center" style="padding: 2px; border:1px solid black;">
+                      <span t-field="l.debe"/>
+                  </td>
+                  <td class="text-center" style="padding: 2px; border:1px solid black;">
+                        <span t-field="l.haber"/>
+                  </td>
+                  <td class="text-center" style="padding: 2px; border:1px solid black;">
+                        <span t-field="l.currency_id.name"/>
+                  </td>
+                  <td class="text-center" style="padding: 2px; border:1px solid black;">
+                        <span t-field="l.importe_moneda"/>
+                  </td>
+                </t>
+              </tr>
+            </tbody>
+          </table>
+        </div> 
+      </t>
+    </template>
+  </data>
+</odoo>

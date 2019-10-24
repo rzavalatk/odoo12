@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+      <!-- Form View -->
+      <record model="ir.ui.view" id="hr_employe_metas_form_view">
+          <field name="name">hr.employee.metas.form.view</field>
+          <field name="model">hr.employee.metas</field>
+          <field name="arch" type="xml">
+            <form string = "Form Import">
+                <sheet>
+                  <tree>
+                      <group name="x_datos0" col="3">
+                        <field name="empleado_id"/>
+                      </group>
+                  </tree>
+                </sheet>
+            </form>
+          </field>
+      </record>
+      <!-- Tree View -->
+      <record model="ir.ui.view" id="hr_employee_metas_tree_view">
+          <field name="name">hr.employee.metas.tree.view</field>
+          <field name="model">hr.employee.metas</field>
+          <field name="arch" type="xml">
+            <tree >
+                <field name="empleado_id"/>
+            </tree>
+          </field>
+      </record>
+
+    <record id="hr_kanban_view_employees_metas" model="ir.ui.view">
+          <field name="name">hr.employee.metas.kanban</field>
+          <field name="model">hr.employee.metas</field>
+          <field name="arch" type="xml">
+              <kanban class="o_hr_employee_kanban center-block">
+                  <field name="empleado_id"/>
+                  <separator/>
+                  <field name="empleado_id"/>
+                  <templates>
+                    <t t-name="kanban-box">
+                      <div style="height:100px" class="oe_kanban_global_click">
+                              <field name="empleado_id" bold="1" display="full"/>
+                              Responsable: <field name="empleado_id"/>
+                            </div>
+                    </t>
+                  </templates>
+              </kanban>
+          </field>
+      </record>
+
+  </data> 
+</odoo>

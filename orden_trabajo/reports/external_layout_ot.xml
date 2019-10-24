@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="external_layout_ot">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-call="orden_trabajo.external_layout_standard_ot"><t t-raw="0"/></t>
+        </template>
+    </data>
+</odoo>

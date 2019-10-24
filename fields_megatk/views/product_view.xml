@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	<record model="ir.ui.view" id="product_campo_megatk_view_inh">
+  		<field name="name">product.campomegatk.view</field>
+  		<field name="model">product.template</field>
+  		<field name="inherit_id" ref="product.product_template_form_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='standard_price']" position="attributes">
+			    <attribute name="groups">stock.group_stock_manager,base.group_system,purchase.group_purchase_manager</attribute>
+			</xpath>
+		  	<xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='general_information']/group[1]" position="after">
+		    	<group name="marca">
+		    	  	<group name="studio_group_iZx2r_left">
+		    	  		<field name="marca_id" domain="[('company_id', '=', company_id)]"/>
+		     	   		<field name="x_ingresotk" attrs='{"invisible": [["company_id","not in",8]]}'/>
+		     	   		<field name="x_ingresome" attrs='{"invisible": [["company_id","not in",9]]}'/>
+		     	   		<field name="x_ingresonic" attrs='{"invisible": [["company_id","not in",12]]}'/>
+		    		</group>
+		    	  	<group name="tipo">
+		        		<field name="x_tipo" attrs='{"invisible": [["company_id","not in",8]]}'/>
+		      		</group>
+		    	</group>
+		  	</xpath>
+		</field>
+   	</record>
+
+   	<record model="ir.ui.view" id="product_page_megatk_view_inh">
+  		<field name="name">product.page.campomegatk.view</field>
+  		<field name="model">product.template</field>
+  		<field name="inherit_id" ref="product.product_template_only_form_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//form[@name='Product Template']/sheet[1]/notebook[1]" position="inside">
+			    <page name="x_importacion" string="Personalización" groups="stock.group_stock_user">
+			      	<group name="x_datos"  string="Importación">
+			        	<group name="x_datos_left">
+			        		<field name="x_costo_real" widget="monetary"/>
+			        		<field name="x_ponderacion"/>
+		     	   		</group>	        	
+			      	</group>
+			      	<group name="x_datos1" string="Comisiones">
+			        	<group name="x_datos_left1">
+			        		<field name="x_comisiones_a"/>
+		        			<field name="x_comisiones_m"/>
+		     	   		</group>
+			      	</group>
+			    </page>
+			 </xpath>
+		</field>
+   	</record>
+
+   	<record model="ir.ui.view" id="product_product_page_megatk_view_inh">
+  		<field name="name">product.product.page.campomegatk.view</field>
+  		<field name="model">product.product</field>
+  		<field name="inherit_id" ref="product.product_normal_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+			    <page name="x_importacion" string="Personalización" groups="stock.group_stock_user">
+			      	<group name="x_datos"  string="Importación">
+			        	<group name="x_datos_left">
+			        		<field name="x_costo_real" widget="monetary"/>
+			        		<field name="x_ponderacion"/>
+		     	   		</group>	        	
+			      	</group>
+			      	<group name="x_datos1" string="Comisiones">
+			        	<group name="x_datos_left1">
+			        		<field name="x_comisiones_a"/>
+		        			<field name="x_comisiones_m"/>
+		     	   		</group>
+			      	</group>
+			    </page>
+			 </xpath>
+		</field>
+   	</record>
+
+	<record id="marca_product_mega" model="ir.rule">
+        <field name="name">producto marca</field>
+        <field name="model_id" ref="model_product_marca"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+	<record model="ir.ui.view" id="marca_product_mega_tree_view">
+		<field name="name">marca.product.mega.tree.view</field>
+		<field name="model">product.marca</field>
+		<field name="arch" type="xml">
+			<tree decoration-danger="active==False" decoration-info="active==True">
+				<field name="name"/>
+				<field name="company_id"/>
+				<field name="active"/>
+			</tree>
+		</field>
+    </record>
+
+   	<record model="ir.actions.act_window" id="action_product_template_marca">
+      	<field name="name">Marca</field>
+      	<field name="type">ir.actions.act_window</field>
+      	<field name="res_model">product.marca</field>
+      	<field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Marca" id="import_product_template_marca_mega" sequence = "2" parent="stock.menu_stock_inventory_control" action = "action_product_template_marca"/>
+	</data>	
+</odoo>
+
